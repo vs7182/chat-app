@@ -4,7 +4,7 @@ import ProfileInfo from "./components/profile-info";
 import { apiClient } from "@/lib/api-client.js";
 import { GET_DM_CONTACTS_ROUTES } from "@/utils/constants.js";
 import { useAppStore } from "@/store";
-import ContactList from "@/components/ui/contact-list";
+import ContactList from "@/components/contact-list";
 
 
 const ContactsContainer = () => {
@@ -12,14 +12,15 @@ const ContactsContainer = () => {
   const {setDirectMessagesContacts,directMessagesContacts} = useAppStore();
 
   useEffect(()=>{
-    const getContact = async () =>{
-      const response = await apiClient.get(GET_DM_CONTACTS_ROUTES,{withCredentials:true});
+    const getContacts = async () =>{
+      const response = await apiClient.get(GET_DM_CONTACTS_ROUTES,{withCredentials:true,});
       if(response.data.contact){
         setDirectMessagesContacts(response.data.contact);
-        console.log(response.data.contact)
+        console.log("Response is here ",response.data.contact)
+        console.log("direct MEssage",setDirectMessagesContacts)
       }
     };
-    getContact();
+    getContacts();
   },[]);
   return (
     <div className="relative md:w-[35vw] lg:w-[30vw] xl:w-[20vw] bg-[#1b1c24] border-r-2 border-[#2f303b]">
@@ -32,7 +33,7 @@ const ContactsContainer = () => {
           <NewDM />
         </div>
         <div className="max-h-[38vh] overflow-y-auto scrollbar-hidden">
-          <ContactList contact={directMessagesContacts} />         
+          <ContactList contacts={directMessagesContacts}/>         
         </div>
       </div>
       <div className="my-5">
