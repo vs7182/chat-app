@@ -5,10 +5,10 @@ import multer from "multer";
 
 
 const router = Router();
-const upload = multer({dest:"uploads/files"});
+const upload=multer({dest:"uploads/files"});
 
 
 router.post("/get-messages",verifyToken,getMessages);
-router.post("upload-file",verifyToken,upload.single("file"),uploadFile);
+router.post("/upload-file",verifyToken,upload.single("file"),uploadFile);
 
 export default router;
